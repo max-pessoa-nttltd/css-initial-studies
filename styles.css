@@ -1,0 +1,479 @@
+/* =========================================================
+   Folha de estilos da apresentação
+   Tudo aqui é didático: as classes .demo-* abaixo são
+   exatamente o que aparece nos blocos de código de cada
+   estação. Leia, copie, modifique.
+   ========================================================= */
+
+/* ---------- 1. Tokens de design (variáveis CSS) ---------- */
+:root {
+  /* paleta */
+  --ink:       #161334;
+  --ink-2:     #0F0D24;
+  --surface:   #211B47;
+  --surface-2: #2C2558;
+  --coral:     #FF6B6B;
+  --gold:      #FFC857;
+  --mint:      #4ECDC4;
+  --lilac:     #B79CFF;
+  --text:      #ECE8FF;
+  --muted:     #A79FD6;
+  --line:      rgba(183, 156, 255, 0.18);
+
+  /* tipografia */
+  --display: "Bricolage Grotesque", system-ui, sans-serif;
+  --body:    "Inter", system-ui, sans-serif;
+  --mono:    "JetBrains Mono", ui-monospace, monospace;
+
+  /* ritmo */
+  --radius: 18px;
+  --maxw: 1140px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- 2. Base ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--body);
+  color: var(--text);
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(78, 205, 196, 0.10), transparent 60%),
+    radial-gradient(900px 500px at 0% 10%, rgba(255, 107, 107, 0.10), transparent 55%),
+    var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-family: var(--display); line-height: 1.05; margin: 0; }
+p { margin: 0; }
+a { color: inherit; }
+
+.wrap { width: min(100% - 2.5rem, var(--maxw)); margin-inline: auto; }
+
+/* ---------- 3. Barra de progresso (scroll-driven, só CSS) ---------- */
+.progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 4px;
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--coral), var(--gold), var(--mint));
+  z-index: 50;
+  transform: scaleX(0);
+  animation: grow linear;
+  animation-timeline: scroll(root);
+}
+@keyframes grow { to { transform: scaleX(1); } }
+
+/* ---------- 4. Cabeçalho fixo ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 0;
+  backdrop-filter: blur(10px);
+  background: rgba(15, 13, 36, 0.55);
+  border-bottom: 1px solid var(--line);
+}
+.brand { font-family: var(--mono); font-size: 0.85rem; letter-spacing: 0.04em; color: var(--muted); }
+.brand b { color: var(--text); }
+.topbar nav { display: flex; gap: 1.25rem; font-size: 0.85rem; }
+.topbar nav a { color: var(--muted); text-decoration: none; transition: color 0.2s var(--ease); }
+.topbar nav a:hover, .topbar nav a:focus-visible { color: var(--mint); }
+
+/* ---------- 5. Hero ---------- */
+.hero { padding: clamp(4rem, 12vh, 9rem) 0 4rem; }
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mint);
+  margin-bottom: 1.25rem;
+}
+.hero h1 {
+  font-size: clamp(2.8rem, 9vw, 6.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.hero h1 .flow {
+  background: linear-gradient(110deg, var(--coral), var(--gold) 35%, var(--mint) 70%, var(--lilac));
+  background-size: 280% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: hueShift 9s ease-in-out infinite;
+}
+@keyframes hueShift { 50% { background-position: 100% 0; } }
+
+.hero p.lead {
+  max-width: 46ch;
+  margin-top: 1.5rem;
+  font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+  color: var(--muted);
+}
+.scroll-hint {
+  margin-top: 3rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.scroll-hint .dot {
+  width: 22px; height: 34px;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  position: relative;
+}
+.scroll-hint .dot::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 7px;
+  width: 4px; height: 7px;
+  margin-left: -2px;
+  border-radius: 2px;
+  background: var(--mint);
+  animation: wheel 1.6s var(--ease) infinite;
+}
+@keyframes wheel { 0%,100% { opacity: 0; transform: translateY(0); } 40% { opacity: 1; transform: translateY(8px); } }
+
+/* ---------- 6. Estações (cada conceito de CSS) ---------- */
+.station { padding: clamp(3.5rem, 8vh, 6rem) 0; border-top: 1px solid var(--line); }
+.station-head { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 2rem; }
+.station-num {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  color: var(--gold);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+  flex: none;
+}
+.station h2 { font-size: clamp(1.6rem, 4vw, 2.6rem); font-weight: 700; }
+.station .tagline { color: var(--muted); margin-top: 0.5rem; max-width: 60ch; }
+
+/* split: resultado | código */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  align-items: stretch;
+}
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.panel-label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.panel-label::before {
+  content: "";
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--coral);
+}
+.panel.code .panel-label::before { background: var(--mint); }
+.stage {
+  min-height: 240px;
+  display: grid;
+  place-items: center;
+  padding: 1.75rem;
+  gap: 1rem;
+}
+
+/* bloco de código */
+pre {
+  margin: 0;
+  padding: 1.1rem 1.25rem;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  line-height: 1.7;
+  overflow-x: auto;
+  color: #cfc8f5;
+  background: var(--ink-2);
+  height: 100%;
+}
+code { font-family: var(--mono); }
+.tok-com { color: #6f6aa0; font-style: italic; }
+.tok-sel { color: var(--gold); }
+.tok-prop { color: var(--mint); }
+.tok-val { color: var(--coral); }
+.tok-fn { color: var(--lilac); }
+
+.tip {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.tip b {
+  color: var(--gold);
+  font-family: var(--mono);
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  margin-right: 0.6rem;
+}
+.tip code, .tagline code, .lead code {
+  font-family: var(--mono);
+  font-size: 0.85em;
+  color: var(--mint);
+  background: rgba(78, 205, 196, 0.1);
+  padding: 0.1em 0.35em;
+  border-radius: 5px;
+}
+
+/* =========================================================
+   DEMOS — o CSS real de cada estação
+   ========================================================= */
+
+/* 01 · Cores & gradientes */
+.demo-swatches { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
+.demo-swatch {
+  width: 84px; height: 84px;
+  border-radius: 14px;
+  display: grid; place-items: end center;
+  padding-bottom: 0.4rem;
+  font: 500 0.66rem var(--mono);
+  color: rgba(0,0,0,0.55);
+}
+.s-linear  { background: linear-gradient(135deg, #FF6B6B, #FFC857); }
+.s-radial  { background: radial-gradient(circle at 30% 30%, #4ECDC4, #2C2558); color: #ECE8FF; }
+.s-conic   { background: conic-gradient(from 90deg, #FF6B6B, #FFC857, #4ECDC4, #B79CFF, #FF6B6B); }
+.s-hsl     { background: hsl(265 70% 65%); color: #ECE8FF; }
+
+/* 02 · Sombras & profundidade */
+.demo-shadows { display: flex; gap: 1.25rem; flex-wrap: wrap; justify-content: center; }
+.demo-card3d {
+  width: 110px; height: 130px;
+  border-radius: 16px;
+  background: var(--surface-2);
+  display: grid; place-items: center;
+  font: 600 0.8rem var(--body);
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.demo-card3d.soft   { box-shadow: 0 18px 40px -12px rgba(0,0,0,0.6); }
+.demo-card3d.glow   { box-shadow: 0 0 0 1px var(--line), 0 0 36px -4px var(--coral); }
+.demo-card3d.layer  { box-shadow: 0 2px 0 #3a3170, 0 4px 0 #322a64, 0 16px 30px -10px rgba(0,0,0,0.7); }
+.demo-card3d:hover  { transform: translateY(-10px); }
+
+/* 03 · Tipografia viva */
+.demo-type { text-align: center; }
+.demo-type .big {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 7vw, 4rem);
+  letter-spacing: -0.04em;
+  background: linear-gradient(100deg, var(--mint), var(--lilac));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.demo-type .spaced {
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.5em;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+  padding-left: 0.5em;
+}
+
+/* 04 · Transições */
+.demo-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+.demo-btn {
+  font: 600 0.95rem var(--body);
+  color: var(--ink);
+  background: var(--gold);
+  border: 0;
+  padding: 0.8rem 1.5rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), background 0.25s var(--ease);
+}
+.demo-btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 12px 28px -8px var(--gold); }
+.demo-btn.ghost {
+  background: transparent; color: var(--mint);
+  box-shadow: inset 0 0 0 1.5px var(--mint);
+}
+.demo-btn.ghost:hover { background: var(--mint); color: var(--ink); box-shadow: 0 12px 28px -8px var(--mint); }
+
+/* 05 · Transformações + card 3D que vira */
+.flip { perspective: 900px; }
+.flip-inner {
+  width: 150px; height: 190px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.7s var(--ease);
+}
+.flip:hover .flip-inner { transform: rotateY(180deg); }
+.flip-face {
+  position: absolute; inset: 0;
+  border-radius: 18px;
+  display: grid; place-items: center; text-align: center;
+  backface-visibility: hidden;
+  font: 600 0.9rem var(--body);
+  padding: 1rem;
+}
+.flip-front { background: linear-gradient(135deg, var(--coral), var(--gold)); color: var(--ink); }
+.flip-back  { background: linear-gradient(135deg, var(--mint), var(--lilac)); color: var(--ink); transform: rotateY(180deg); }
+
+/* 06 · @keyframes */
+.demo-anim { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; align-items: center; }
+.orb {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, var(--mint), #1f7c75);
+  animation: float 3s var(--ease) infinite;
+}
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-22px); } }
+.pulse {
+  width: 60px; height: 60px; border-radius: 16px;
+  background: var(--coral);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(255,107,107,0.5); } 50% { box-shadow: 0 0 0 18px rgba(255,107,107,0); } }
+.spinner {
+  width: 56px; height: 56px; border-radius: 50%;
+  border: 5px solid var(--line);
+  border-top-color: var(--gold);
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* 07 · Flexbox & Grid */
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 56px;
+  gap: 10px;
+  width: 100%;
+}
+.demo-grid > span {
+  border-radius: 10px;
+  background: var(--surface-2);
+  display: grid; place-items: center;
+  font: 600 0.85rem var(--mono); color: var(--muted);
+}
+.demo-grid > .wide { grid-column: span 2; background: linear-gradient(120deg, var(--coral), var(--gold)); color: var(--ink); }
+.demo-grid > .tall { grid-row: span 2; background: linear-gradient(160deg, var(--mint), var(--lilac)); color: var(--ink); }
+
+/* 08 · Playground de variáveis */
+.pg-stage { gap: 1.5rem; }
+.pg-box {
+  --pg-hue: 320;
+  --pg-radius: 24px;
+  --pg-rotate: 0deg;
+  --pg-shadow: 30px;
+  width: 130px; height: 130px;
+  border-radius: var(--pg-radius);
+  transform: rotate(var(--pg-rotate));
+  background: hsl(var(--pg-hue) 80% 62%);
+  box-shadow: 0 18px calc(var(--pg-shadow) * 1px) -8px hsl(var(--pg-hue) 80% 50% / 0.8);
+  transition: border-radius 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.pg-controls { display: grid; gap: 0.75rem; width: 100%; max-width: 280px; }
+.pg-row { display: grid; grid-template-columns: 90px 1fr; align-items: center; gap: 0.75rem; font: 500 0.8rem var(--mono); color: var(--muted); }
+.pg-row input[type="range"] { width: 100%; accent-color: var(--mint); }
+
+/* 09 · Recursos sofisticados */
+.demo-fancy { display: flex; gap: 1.25rem; flex-wrap: wrap; justify-content: center; }
+.fancy {
+  width: 130px; height: 130px;
+  display: grid; place-items: center; text-align: center;
+  font: 600 0.75rem var(--body);
+  border-radius: 16px;
+  padding: 0.5rem;
+}
+.fancy.clip {
+  background: linear-gradient(135deg, var(--gold), var(--coral));
+  color: var(--ink);
+  clip-path: polygon(50% 0, 100% 38%, 82% 100%, 18% 100%, 0 38%);
+}
+.fancy.glass {
+  background: rgba(236, 232, 255, 0.08);
+  border: 1px solid rgba(236, 232, 255, 0.18);
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+}
+.fancy.glass::before {
+  content: "";
+  position: absolute; inset: -40% -40% auto auto;
+  width: 120px; height: 120px; border-radius: 50%;
+  background: var(--mint);
+  filter: blur(28px);
+  opacity: 0.7;
+}
+.fancy.glass span { position: relative; z-index: 1; }
+.fancy.blend {
+  background: var(--lilac);
+  color: var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+.fancy.blend::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 70% 30%, var(--coral), transparent 60%);
+  mix-blend-mode: hard-light;
+}
+.fancy.blend span { position: relative; z-index: 1; }
+
+/* ---------- 7. Encerramento ---------- */
+.outro { padding: clamp(3.5rem, 8vh, 6rem) 0 1rem; border-top: 1px solid var(--line); }
+.cheats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; margin-top: 2rem; }
+.cheat {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+}
+.cheat code { color: var(--mint); font-size: 0.82rem; }
+.cheat p { color: var(--muted); font-size: 0.82rem; margin-top: 0.3rem; }
+footer { margin-top: 3rem; padding: 2rem 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.85rem; text-align: center; }
+footer .flow {
+  background: linear-gradient(110deg, var(--coral), var(--mint));
+  -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 600;
+}
+
+/* ---------- 8. Responsivo ---------- */
+@media (max-width: 760px) {
+  .split { grid-template-columns: 1fr; }
+  .topbar nav { display: none; }
+  .panel.code { order: 2; }
+}
+
+/* ---------- 9. Acessibilidade: respeitar quem prefere menos movimento ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* foco visível para navegação por teclado */
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 3px;
+  border-radius: 6px;
+}

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O poder do CSS · Aula prática para front-end</title>
+<meta name="description" content="Apresentação interativa sobre estilos, animações e recursos sofisticados de CSS — efeito ao vivo com o código ao lado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Barra de progresso: anima conforme o scroll, 100% CSS -->
+<div class="progress" aria-hidden="true"></div>
+
+<!-- Cabeçalho -->
+<header class="topbar">
+  <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;width:min(100% - 2.5rem, var(--maxw));">
+    <span class="brand"><b>{ }</b> &nbsp;o-poder-do.css</span>
+    <nav>
+      <a href="#cores">Cores</a>
+      <a href="#sombras">Sombras</a>
+      <a href="#transicoes">Transições</a>
+      <a href="#animacoes">Animações</a>
+      <a href="#layout">Layout</a>
+      <a href="#playground">Playground</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Aula prática · Front-end</p>
+    <h1>O poder do <span class="flow">CSS</span></h1>
+    <p class="lead">
+      Estilos, animações e recursos sofisticados — vistos ao vivo, com o
+      código real ao lado. Tudo que você rolar daqui pra baixo é feito só
+      com HTML e CSS. Sem frameworks, sem mágica.
+    </p>
+    <div class="scroll-hint">
+      <span class="dot" aria-hidden="true"></span>
+      role para começar
+    </div>
+  </div>
+</section>
+
+<!-- 01 · CORES E GRADIENTES -->
+<section class="station" id="cores">
+  <div class="wrap">
+    <div class="station-head">
+      <span class="station-num">01</span>
+      <div>
+        <h2>Cores &amp; gradientes</h2>
+        <p class="tagline">Antes de animar, a gente pinta. CSS combina cores sólidas (hex, rgb, hsl) com gradientes lineares, radiais e cônicos para criar profundidade sem usar uma única imagem.</p>
+      </div>
+    </div>
+    <div class="split">
+      <div class="panel">
+        <div class="panel-label">Resultado</div>
+        <div class="stage">
+          <div class="demo-swatches">
+            <div class="demo-swatch s-linear">linear</div>
+            <div class="demo-swatch s-radial">radial</div>
+            <div class="demo-swatch s-conic">conic</div>
+            <div class="demo-swatch s-hsl">hsl()</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel code">
+        <div class="panel-label">CSS</div>
+<pre><code><span class="tok-sel">.linear</span> {
+  <span class="tok-prop">background</span>: <span class="tok-fn">linear-gradient</span>(<span class="tok-val">135deg</span>, #FF6B6B, #FFC857);
+}
+<span class="tok-sel">.radial</span> {
+  <span class="tok-prop">background</span>: <span class="tok-fn">radial-gradient</span>(circle, #4ECDC4, #2C2558);
+}
+<span class="tok-sel">.conic</span> {
+  <span class="tok-prop">background</span>: <span class="tok-fn">conic-gradient</span>(#FF6B6B, #FFC857, #4ECDC4);
+}
+<span class="tok-sel">.hsl</span> {
+  <span class="tok-comment tok-com">/* matiz, saturação, luz — fácil de ajustar */</span>
+  <span class="tok-prop">background</span>: <span class="tok-fn">hsl</span>(<span class="tok-val">265 70% 65%</span>);
+}</code></pre>
+      </div>
+    </div>
+    <p class="tip"><b>dica</b> Prefira <code>hsl()</code> para montar paletas: muda só o primeiro número (o matiz) e você varre o arco-íris mantendo o mesmo "tom".</p>
+  </div>
+</section>
+
+<!-- 02 · SOMBRAS -->
+<section class="station" id="sombras">
+  <div class="wrap">
+    <div class="station-head">
+      <span class="station-num">02</span>
+      <div>
+        <h2>Sombras &amp; profundidade</h2>
+        <p class="tagline">Uma <code>box-shadow</code> não é só "uma sombra embaixo". Empilhando várias você cria relevo, brilho (glow) e a sensação de camadas. Passe o mouse nos cartões.</p>
+      </div>
+    </div>
+    <div class="split">
+      <div class="panel">
+        <div class="panel-label">Resultado · passe o mouse</div>
+        <div class="stage">
+          <div class="demo-shadows">
+            <div class="demo-card3d soft">suave</div>
+            <div class="demo-card3d glow">glow</div>
+            <div class="demo-card3d layer">camadas</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel code">
+        <div class="panel-label">CSS</div>
+<pre><code><span class="tok-comment tok-com">/* x  y  desfoque  espalhamento  cor */</span>
+<span class="tok-sel">.soft</span> {
+  <span class="tok-prop">box-shadow</span>: <span class="tok-val">0 18px 40px -12px rgba(0,0,0,.6)</span>;
+}
+<span class="tok-sel">.glow</span> {
+  <span class="tok-prop">box-shadow</span>: <span class="tok-val">0 0 36px -4px #FF6B6B</span>;
+}
+<span class="tok-comment tok-com">/* várias sombras separadas por vírgula */</span>
+<span class="tok-sel">.camadas</span> {
+  <span class="tok-prop">box-shadow</span>:
+    <span class="tok-val">0 2px 0 #3a3170</span>,
+    <span class="tok-val">0 4px 0 #322a64</span>,
+    <span class="tok-val">0 16px 30px -10px rgba(0,0,0,.7)</span>;
+}</code></pre>
+      </div>
+    </div>
+    <p class="tip"><b>dica</b> O 4º valor (espalhamento) negativo "encolhe" a sombra — ótimo para sombras suaves e realistas, mais próximas da luz natural.</p>
+  </div>
+</section>
+
+<!-- 03 · TIPOGRAFIA -->
+<section class="station" id="tipografia">
+  <div class="wrap">
+    <div class="station-head">
+      <span class="station-num">03</span>
+      <div>
+        <h2>Tipografia viva</h2>
+        <p class="tagline">Texto também é design. Peso, espaçamento entre letras e até gradientes aplicados ao texto transformam palavras comuns em destaque.</p>
+      </div>
+    </div>
+    <div class="split">
+      <div class="panel">
+        <div class="panel-label">Resultado</div>
+        <div class="stage">
+          <div class="demo-type">
+            <div class="big">Tipografia</div>
+            <div class="spaced">com personalidade</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel code">
+        <div class="panel-label">CSS</div>
+<pre><code><span class="tok-sel">.big</span> {
+  <span class="tok-prop">font-weight</span>: <span class="tok-val">800</span>;
+  <span class="tok-prop">letter-spacing</span>: <span class="tok-val">-0.04em</span>;
+  <span class="tok-comment tok-com">/* gradiente aplicado às letras */</span>
+  <span class="tok-prop">background</span>: <span class="tok-fn">linear-gradient</span>(100deg, #4ECDC4, #B79CFF);
+  <span class="tok-prop">background-clip</span>: <span class="tok-val">text</span>;
+  <span class="tok-prop">color</span>: <span class="tok-val">transparent</span>;
+}
+<span class="tok-sel">.spaced</span> {
+  <span class="tok-prop">letter-spacing</span>: <span class="tok-val">0.5em</span>;
+  <span class="tok-prop">text-transform</span>: <span class="tok-val">uppercase</span>;
+}</code></pre>
+      </div>
+    </div>
+    <p class="tip"><b>dica</b> Use <code>em</code> em <code>letter-spacing</code>: o valor acompanha o tamanho da fonte, então o espaçamento fica proporcional em qualquer tela.</p>
+  </div>
+</section>
+
+<!-- 04 · TRANSIÇÕES -->
+<section class="station" id="transicoes">
+  <div class="wrap">
+    <div class="station-head">
+      <span class="station-num">04</span>
+      <div>
+        <h2>Transições suaves</h2>
+        <p class="tagline">A <code>transition</code> é a forma mais barata de deixar uma interface viva: ela interpola entre dois estados (normal e <code>:hover</code>) ao longo do tempo. Passe o mouse.</p>
+      </div>
+    </div>
+    <div class="split">
+      <div class="panel">
+        <div class="panel-label">Resultado · passe o mouse</div>
+        <div class="stage">
+          <div class="demo-btns">
+            <button class="demo-btn">Sólido</button>
+            <button class="demo-btn ghost">Contorno</button>
+          </div>
+        </div>
+      </div>
+      <div class="panel code">
+        <div class="panel-label">CSS</div>
+<pre><code><span class="tok-sel">.botao</span> {
+  <span class="tok-prop">transition</span>:
+    <span class="tok-comment tok-com">/* propriedade  duração  curva */</span>
+    <span class="tok-val">transform 0.25s</span> <span class="tok-fn">cubic-bezier</span>(.22,1,.36,1),
+    <span class="tok-val">box-shadow 0.25s ease</span>;
+}
+<span class="tok-sel">.botao</span><span class="tok-fn">:hover</span> {
+  <span class="tok-prop">transform</span>: <span class="tok-fn">translateY</span>(-3px) <span class="tok-fn">scale</span>(1.04);
+  <span class="tok-prop">box-shadow</span>: <span class="tok-val">0 12px 28px -8px #FFC857</span>;
+}</code></pre>
+      </div>
+    </div>
+    <p class="tip"><b>dica</b> Anime sempre <code>transform</code> e <code>opacity</code> em vez de <code>top</code>/<code>width</code>. Eles rodam na GPU e mantêm a animação a 60fps.</p>
+  </div>
+</section>
+
+<!-- 05 · TRANSFORMAÇÕES -->
+<section class="station" id="transformacoes">
+  <div class="wrap">
+    <div class="station-head">
+      <span class="station-num">05</span>
+      <div>
+        <h2>Transformações 2D e 3D</h2>
+        <p class="tagline"><code>transform</code> move, gira, escala e inclina elementos — inclusive no espaço 3D. Com <code>perspective</code> e <code>rotateY</code> dá pra virar um cartão. Passe o mouse no cartão.</p>
+      </div>
+    </div>
+    <div class="split">
+      <div class="panel">
+        <div class="panel-label">Resultado · passe o mouse</div>
+        <div class="stage">
+          <div class="flip">
+            <div class="flip-inner">
+              <div class="flip-face flip-front">Frente</div>
+              <div class="flip-face flip-back">Verso 👋</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel code">
+        <div class="panel-label">CSS</div>
+<pre><code><span class="tok-sel">.flip</span> { <span class="tok-prop">perspective</span>: <span class="tok-val">900px</span>; }
+<span class="tok-sel">.flip-inner</span> {
+  <span class="tok-prop">transform-style</span>: <span class="tok-val">preserve-3d</span>;
+  <span class="tok-prop">transition</span>: <span class="tok-val">transform 0.7s</span>;
+}
+<span class="tok-sel">.flip</span><span class="tok-fn">:hover</span> <span class="tok-sel">.flip-inner</span> {
+  <span class="tok-prop">transform</span>: <span class="tok-fn">rotateY</span>(180deg);
+}
+<span class="tok-sel">.flip-face</span> {
+  <span class="tok-prop">backface-visibility</span>: <span class="tok-val">hidden</span>;
+}</code></pre>
+      </div>
+    </div>
+    <p class="tip"><b>dica</b> <code>backface-visibility: hidden</code> é o segredo do flip: ele esconde o "verso" de cada face enquanto o cartão gira.</p>
+  </div>
+</section>
+
+<!-- 06 · ANIMAÇÕES -->
+<section class="station" id="animacoes">
+  <div class="wrap">
+    <div class="station-head">
+      <span class="station-num">06</span>
+      <div>
+        <h2>@keyframes &amp; animações</h2>
+        <p class="tagline">Transições vão de A a B. Já a <code>animation</code> com <code>@keyframes</code> roda sozinha, em loop, passando por quantos estados você quiser — flutuar, pulsar, girar.</p>
+      </div>
+    </div>
+    <div class="split">
+      <div class="panel">
+        <div class="panel-label">Resultado · roda em loop</div>
+        <div class="stage">
+          <div class="demo-anim">
+            <div class="orb" title="float"></div>
+            <div class="pulse" title="pulse"></div>
+            <div class="spinner" title="spin"></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel code">
+        <div class="panel-label">CSS</div>
+<pre><code><span class="tok-comment tok-com">/* 1. descreva os quadros */</span>
+<span class="tok-fn">@keyframes</span> <span class="tok-sel">float</span> {
+  <span class="tok-val">0%, 100%</span> { <span class="tok-prop">transform</span>: <span class="tok-fn">translateY</span>(0); }
+  <span class="tok-val">50%</span>      { <span class="tok-prop">transform</span>: <span class="tok-fn">translateY</span>(-22px); }
+}
+<span class="tok-comment tok-com">/* 2. aplique no elemento */</span>
+<span class="tok-sel">.orb</span> {
+  <span class="tok-prop">animation</span>: <span class="tok-val">float 3s ease-in-out infinite</span>;
+}
+<span class="tok-sel">.spinner</span> {
+  <span class="tok-prop">animation</span>: <span class="tok-val">spin 1s linear infinite</span>;
+}</code></pre>
+      </div>
+    </div>
+    <p class="tip"><b>dica</b> A palavra <code>infinite</code> faz repetir pra sempre; troque por um número (ex.: <code>3</code>) para rodar só algumas vezes.</p>
+  </div>
+</section>
+
+<!-- 07 · LAYOUT -->
+<section class="station" id="layout">
+  <div class="wrap">
+    <div class="station-head">
+      <span class="station-num">07</span>
+      <div>
+        <h2>Layout com Grid</h2>
+        <p class="tagline">Esqueça <code>float</code> e margens mágicas. <code>display: grid</code> divide a tela em colunas e linhas, e cada item pode ocupar quantas células quiser.</p>
+      </div>
+    </div>
+    <div class="split">
+      <div class="panel">
+        <div class="panel-label">Resultado</div>
+        <div class="stage">
+          <div class="demo-grid">
+            <span class="wide">span 2 colunas</span>
+            <span class="tall">span 2 linhas</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>6</span>
+          </div>
+        </div>
+      </div>
+      <div class="panel code">
+        <div class="panel-label">CSS</div>
+<pre><code><span class="tok-sel">.grid</span> {
+  <span class="tok-prop">display</span>: <span class="tok-val">grid</span>;
+  <span class="tok-comment tok-com">/* 3 colunas de tamanho igual */</span>
+  <span class="tok-prop">grid-template-columns</span>: <span class="tok-fn">repeat</span>(3, 1fr);
+  <span class="tok-prop">gap</span>: <span class="tok-val">10px</span>;
+}
+<span class="tok-sel">.wide</span> { <span class="tok-prop">grid-column</span>: <span class="tok-val">span 2</span>; }
+<span class="tok-sel">.tall</span> { <span class="tok-prop">grid-row</span>:    <span class="tok-val">span 2</span>; }</code></pre>
+      </div>
+    </div>
+    <p class="tip"><b>dica</b> A unidade <code>fr</code> ("fração") reparte o espaço livre. <code>1fr 2fr</code> = a segunda coluna fica com o dobro da largura. Para alinhar itens em linha, use <code>display: flex</code>.</p>
+  </div>
+</section>
+
+<!-- 08 · PLAYGROUND -->
+<section class="station" id="playground">
+  <div class="wrap">
+    <div class="station-head">
+      <span class="station-num">08</span>
+      <div>
+        <h2>Variáveis CSS · playground</h2>
+        <p class="tagline">Variáveis (<code>--minha-cor</code>) guardam valores reutilizáveis. Mude uma só e tudo que depende dela se atualiza. Mexa nos controles e veja em tempo real.</p>
+      </div>
+    </div>
+    <div class="split">
+      <div class="panel">
+        <div class="panel-label">Resultado · interativo</div>
+        <div class="stage pg-stage">
+          <div class="pg-box" id="pgBox"></div>
+          <div class="pg-controls">
+            <label class="pg-row">matiz <input type="range" id="pgHue" min="0" max="360" value="320"></label>
+            <label class="pg-row">cantos <input type="range" id="pgRadius" min="0" max="65" value="24"></label>
+            <label class="pg-row">girar <input type="range" id="pgRotate" min="-45" max="45" value="0"></label>
+            <label class="pg-row">sombra <input type="range" id="pgShadow" min="0" max="60" value="30"></label>
+          </div>
+        </div>
+      </div>
+      <div class="panel code">
+        <div class="panel-label">CSS</div>
+<pre><code><span class="tok-sel">.box</span> {
+  <span class="tok-comment tok-com">/* defina as variáveis */</span>
+  <span class="tok-prop">--hue</span>: <span class="tok-val">320</span>;
+  <span class="tok-prop">--radius</span>: <span class="tok-val">24px</span>;
+  <span class="tok-comment tok-com">/* use com var() */</span>
+  <span class="tok-prop">border-radius</span>: <span class="tok-fn">var</span>(--radius);
+  <span class="tok-prop">background</span>: <span class="tok-fn">hsl</span>(<span class="tok-fn">var</span>(--hue) 80% 62%);
+}
+<span class="tok-comment tok-com">/* JS muda só a variável: */</span>
+<span class="tok-comment tok-com">// box.style.setProperty('--hue', 200)</span></code></pre>
+      </div>
+    </div>
+    <p class="tip"><b>dica</b> Defina suas variáveis no seletor <code>:root</code> para usá-las no site inteiro — é a base de temas claro/escuro.</p>
+  </div>
+</section>
+
+<!-- 09 · RECURSOS SOFISTICADOS -->
+<section class="station" id="sofisticado">
+  <div class="wrap">
+    <div class="station-head">
+      <span class="station-num">09</span>
+      <div>
+        <h2>Recursos sofisticados</h2>
+        <p class="tagline">O CSS moderno vai muito além do básico: recortar formas com <code>clip-path</code>, criar vidro fosco com <code>backdrop-filter</code> e misturar camadas com <code>mix-blend-mode</code>.</p>
+      </div>
+    </div>
+    <div class="split">
+      <div class="panel">
+        <div class="panel-label">Resultado</div>
+        <div class="stage">
+          <div class="demo-fancy">
+            <div class="fancy clip">clip-path</div>
+            <div class="fancy glass"><span>glass</span></div>
+            <div class="fancy blend"><span>blend</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel code">
+        <div class="panel-label">CSS</div>
+<pre><code><span class="tok-comment tok-com">/* recorta um pentágono */</span>
+<span class="tok-sel">.clip</span> {
+  <span class="tok-prop">clip-path</span>: <span class="tok-fn">polygon</span>(50% 0, 100% 38%, 82% 100%, 18% 100%, 0 38%);
+}
+<span class="tok-comment tok-com">/* vidro fosco (glassmorphism) */</span>
+<span class="tok-sel">.glass</span> {
+  <span class="tok-prop">background</span>: <span class="tok-val">rgba(255,255,255,.08)</span>;
+  <span class="tok-prop">backdrop-filter</span>: <span class="tok-fn">blur</span>(8px);
+}
+<span class="tok-sel">.blend</span><span class="tok-fn">::after</span> {
+  <span class="tok-prop">mix-blend-mode</span>: <span class="tok-val">hard-light</span>;
+}</code></pre>
+      </div>
+    </div>
+    <p class="tip"><b>dica</b> <code>backdrop-filter</code> embaça o que está <em>atrás</em> do elemento — diferente de <code>filter</code>, que afeta o próprio elemento.</p>
+  </div>
+</section>
+
+<!-- ENCERRAMENTO -->
+<section class="outro">
+  <div class="wrap">
+    <div class="station-head">
+      <span class="station-num">→</span>
+      <div>
+        <h2>Continue explorando</h2>
+        <p class="tagline">Você viu o suficiente para começar a brincar. Abra o DevTools (F12), inspecione qualquer elemento desta página e mude valores ao vivo. É assim que se aprende CSS de verdade.</p>
+      </div>
+    </div>
+    <div class="cheats">
+      <div class="cheat"><code>:hover  :focus</code><p>Reagir a mouse e teclado.</p></div>
+      <div class="cheat"><code>transition</code><p>Suavizar mudanças de estado.</p></div>
+      <div class="cheat"><code>@keyframes</code><p>Animações em loop.</p></div>
+      <div class="cheat"><code>transform</code><p>Mover, girar, escalar (GPU).</p></div>
+      <div class="cheat"><code>grid · flex</code><p>Layouts modernos.</p></div>
+      <div class="cheat"><code>var(--x)</code><p>Variáveis reutilizáveis.</p></div>
+      <div class="cheat"><code>clamp()</code><p>Tamanhos fluidos e responsivos.</p></div>
+      <div class="cheat"><code>@media</code><p>Adaptar a cada tela.</p></div>
+    </div>
+  </div>
+  <footer>
+    <div class="wrap">
+      Feito com <span class="flow">só HTML + CSS</span> · uma página que é, ela mesma, a demonstração.<br>
+      Inspecione, copie, quebre e reconstrua. 🛠️
+    </div>
+  </footer>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
